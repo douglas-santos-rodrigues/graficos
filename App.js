@@ -4,6 +4,7 @@ import { SafeAreaView, ScrollView, Text, View, StyleSheet, Image } from 'react-n
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { VictoryPie } from 'victory-native';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { Svg } from 'react-native-svg';
 
@@ -21,37 +22,37 @@ function HomeScreen() {
 
   const mappedDataSaldoBancario = saldoBancario.map(item => (
 
-    <View key={item.id} style={{ marginTop: 10, flexDirection:'row', alignItems:'center' }}>
-    <Image
-      style={{
-        width: 25,
-        height: 25,
-        marginRight:5,
-        borderRadius:5
-      }}
-      source={{
-        uri: item.imagem,
-      }}
-    />
-    <View style={{flex:1}}>
-    <Text>{item.banco}</Text>
+    <View key={item.id} style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center' }}>
+      <Image
+        style={{
+          width: 25,
+          height: 25,
+          marginRight: 5,
+          borderRadius: 5
+        }}
+        source={{
+          uri: item.imagem,
+        }}
+      />
+      <View style={{ flex: 1 }}>
+        <Text>{item.banco}</Text>
+      </View>
+
+      <Text>{item.saldo}</Text>
+
+
     </View>
-   
-    <Text>{item.saldo}</Text>
-
-
-  </View>
 
   ));
 
   const color = [
     "tomato",
     "orange",
-    "gold",
-    "cyan",
-    "red",
+    "#ED9B40",
+    "#61c9a8",
+    "#BA3B46",
     "green",
-    "yellow",
+    "#14213d",
     "purple",
     "pink",
     "brown",
@@ -197,11 +198,36 @@ function HomeScreen() {
 }
 
 function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+
+  const listaRelatorios = [
+    { id: 1, descricao: 'Demostrativo Financeiro', icone: '', relatorio: '' },
+    { id: 2, descricao: 'Analise Bancária', icone: '', relatorio: '' },
+    { id: 3, descricao: 'Analise de Despesas', icone: '', relatorio: '' },
+    { id: 4, descricao: 'Receitas por Unidade', icone: '', relatorio: '' },
+  ]
+  const renderRelatorio = listaRelatorios.map(item => (
+    <View key={item.id} style={{ width: '100%', backgroundColor: '#fff', borderRadius: 10, flexDirection: 'row', padding: 10, alignItems: 'center', marginVertical:5 }}>
+      <Ionicons name="md-document-text" size={36} color="tomato" />
+      <View style={{ flex: 1, paddingHorizontal: 10 }}>
+      <Text>{item.descricao}</Text>
+        </View>
+      <Ionicons name="cloud-download-outline" size={24} color="black" />
     </View>
-  );
+  ))
+
+
+return (
+  <ScrollView style={{ flex: 1, backgroundColor: '#EBECF0' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
+      <View style={{ width: '100%' }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Documentos</Text>
+      </View>
+      {renderRelatorio}
+
+    </View>
+  </ScrollView>
+
+);
 }
 
 const Tab = createMaterialTopTabNavigator();
